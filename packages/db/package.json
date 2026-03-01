@@ -1,0 +1,19 @@
+{
+  "name": "@auditkit/db",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.0",
+    "postgres": "^3.4.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.0",
+    "typescript": "^5.0.0",
+    "@auditkit/config": "*"
+  }
+}
