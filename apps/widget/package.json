@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --format=iife --global-name=AuditKit --outfile=dist/widget.js",
-    "dev": "esbuild src/index.ts --bundle --format=iife --global-name=AuditKit --outfile=dist/widget.dev.js --watch"
+    "build": "bash build.sh",
+    "dev": "esbuild src/index.ts --bundle --outfile=dist/widget.js --target=es2018 --watch"
   },
   "devDependencies": {
     "esbuild": "^0.21.0",
-    "typescript": "^5.0.0",
-    "@auditkit/config": "*"
+    "typescript": "^5.0.0"
   }
 }
