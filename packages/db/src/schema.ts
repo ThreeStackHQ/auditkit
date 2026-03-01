@@ -61,9 +61,25 @@ export const auditEventsRelations = relations(auditEvents, ({ one }) => ({
   workspace: one(workspaces, { fields: [auditEvents.workspaceId], references: [workspaces.id] }),
 }));
 
+export const webhooks = pgTable("webhooks", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  workspaceId: uuid("workspace_id").notNull().references(() => workspaces.id, { onDelete: "cascade" }),
+  url: text("url").notNull(),
+  secret: text("secret").notNull(), // HMAC signing secret
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (t) => ({
+  workspaceIdx: index("webhooks_workspace_idx").on(t.workspaceId),
+}));
+
+export const webhooksRelations = relations(webhooks, ({ one }) => ({
+  workspace: one(workspaces, { fields: [webhooks.workspaceId], references: [workspaces.id] }),
+}));
+
 // Types
 export type User = typeof users.$inferSelect;
 export type Workspace = typeof workspaces.$inferSelect;
 export type AuditEvent = typeof auditEvents.$inferSelect;
 export type NewAuditEvent = typeof auditEvents.$inferInsert;
 export type Subscription = typeof subscriptions.$inferSelect;
+export type Webhook = typeof webhooks.$inferSelect;
